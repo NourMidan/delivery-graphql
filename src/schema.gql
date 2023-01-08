@@ -1,0 +1,154 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Cart {
+  id: ID!
+  items: [Item!]!
+  menuId: String
+  user: User!
+}
+
+enum Categories {
+  burger
+  dessert
+  drinks
+  pasta
+  pizza
+}
+
+input CreateItemInput {
+  description: String!
+  name: String!
+}
+
+input CreateOrderInput {
+  items: ID!
+  menu: ID!
+}
+
+input CreateOwnerInput {
+  category: [Categories!]!
+  email: String!
+  menuName: String!
+  name: String!
+  password: String!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+type Item {
+  cart: Cart!
+  description: String!
+  id: ID!
+  menu: Menu!
+  name: String!
+  order: Order!
+}
+
+input LoginOwnerDto {
+  name: String!
+  password: String!
+}
+
+type LoginOwnerResponse {
+  email: String!
+  id: ID!
+  isOwner: Boolean!
+  menu: Menu!
+  name: String!
+  password: String!
+  token: String!
+}
+
+type LoginResponse {
+  cart: Cart!
+  email: String!
+  id: ID!
+  name: String!
+  orders: [Order!]!
+  token: String!
+}
+
+input LoginUserDto {
+  name: String!
+  password: String!
+}
+
+type Menu {
+  category: [Categories!]!
+  id: ID!
+  items: [Item!]!
+  name: String!
+  orders: [Order!]!
+  owner: Owner!
+}
+
+type Mutation {
+  addToCart(item: String!): Cart!
+  clear: Cart!
+  create(createItemDto: CreateItemInput!): Item!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
+  createOwner(createOwnerInput: CreateOwnerInput!): Owner!
+  createUser(createUserInput: CreateUserInput!): User!
+  remove(id: String!): Item!
+  removeFromCart(item: String!): Cart!
+  signIn(loginOwnerDto: LoginOwnerDto!): LoginOwnerResponse!
+  signInUser(loginUserDto: LoginUserDto!): LoginResponse!
+  update(id: String!, updateItemDto: UpdateItemInput!): Item!
+  updateOrder(createOrderInput: UpdateOrderInput!, id: String!): Order!
+}
+
+type Order {
+  id: ID!
+  items: [Item!]!
+  menu: Menu!
+  status: String!
+  user: User!
+}
+
+type Owner {
+  email: String!
+  id: ID!
+  isOwner: Boolean!
+  menu: Menu!
+  name: String!
+  password: String!
+}
+
+type Query {
+  createMenu(category: String!, limit: Float!, page: Float!, search: String!): [Menu!]!
+  findOne(id: String!): Menu!
+  getProfile: User!
+  getUserCart: Cart!
+  order: [Order!]!
+}
+
+enum Status {
+  delivered
+  delivering
+  prepairng
+}
+
+input UpdateItemInput {
+  description: String!
+  name: String!
+}
+
+input UpdateOrderInput {
+  items: ID
+  menu: ID
+  status: Status!
+}
+
+type User {
+  cart: Cart!
+  email: String!
+  id: ID!
+  name: String!
+  orders: [Order!]!
+}
